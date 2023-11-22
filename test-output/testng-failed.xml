@@ -3,12 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="baseclass.TC2">
+      <class name="baseclass.connectSSHManager">
         <methods>
+          <include name="tearDown"/>
           <include name="TC1" invocation-numbers="0"/>
           <include name="setup"/>
         </methods>
-      </class> <!-- baseclass.TC2 -->
+      </class> <!-- baseclass.connectSSHManager -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

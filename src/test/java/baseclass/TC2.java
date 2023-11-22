@@ -11,7 +11,7 @@ import org.testng.annotations.DataProvider;
 
 public class TC2 extends session{
 	
-	@Test(dataProvider="datalog")
+	@Test(dataProvider="dataLogin")
 	public void TC1(HashMap<String,String> data ) throws InterruptedException {
 		
 		driver.get("https://www.visionplus.id");
@@ -33,7 +33,7 @@ public class TC2 extends session{
 
 
 	@DataProvider
-	public Object[][] dataLog() throws IOException {
+	public Object[][] dataLogin() throws IOException {
 		List<HashMap<String, String>> data = getJsonData(System.getProperty("user.dir")+"/src/test/java/com.vision_plus.data/datalogin.json");
 		return new Object[][] {{data.get(0)}};
 		
