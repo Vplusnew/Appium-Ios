@@ -1,18 +1,21 @@
-package baseclass;
+package TestCase;
 
 
-import appiumtest.session;
+import IOSDriverManager.IOSDriverManager;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
+
+import IOSDriverManager.IOSDriverManager;
+
 import org.testng.annotations.DataProvider;
 
-public class TC2 extends session{
+public class TC2 extends IOSDriverManager{
 	
 	@Test(dataProvider="dataLogin")
-	public void TC1(HashMap<String,String> data ) throws InterruptedException {
+	public void TC2(HashMap<String,String> data ) throws InterruptedException {
 		
 		driver.get("https://www.visionplus.id");
 		Thread.sleep(1000);
@@ -23,8 +26,9 @@ public class TC2 extends session{
 		driver.findElement(By.xpath("(//input[@placeholder='8123456xxx'])[1]")).sendKeys(data.get("phone"));
 		Thread.sleep(500);
 		driver.findElement(By.xpath("(//button[normalize-space()='Continue'])[1]")).click();
-		Thread.sleep(500);
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//input[@placeholder='Your password'])[1]")).sendKeys(data.get("password"));
+		Thread.sleep(1000);	
 		driver.findElement(By.xpath("(//button[normalize-space()='Continue'])[1]")).click();
 		Thread.sleep(5000);
 		

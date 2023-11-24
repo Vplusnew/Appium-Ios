@@ -1,23 +1,20 @@
-package appiumtest;
+package IOSDriverManager;
 import java.net.URL;
-import java.io.FileReader;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.List;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.openqa.selenium.NoSuchSessionException;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-import org.yaml.snakeyaml.parser.ParserException;
-
-
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.appium.java_client.AppiumDriver;
 
-public class sample {
+public class GetDriverandJsondata {
 	 
 	protected AppiumDriver driver ;
 	@BeforeTest
@@ -45,33 +42,22 @@ public class sample {
 		  exp.printStackTrace();
 		}
 	}
-		
-		@DataProvider(name="UserLogin")
-		public String[] readJson () throws IOException,ParserException, ParseException {
-			String data= System.getProperty("user.dir"); 
-			JSONParser jsonParser= new JSONParser();
-			FileReader reader= new FileReader	(System.getProperty("user.dir") + "/src/test/java/com.vision_plus.data/datalogin.json");
+	public List<HashMap<String, String>> getJsonData(String jsonFilePath) throws IOException {
+			String jsonContent = FileUtils.readFileToString(new File(jsonFilePath),StandardCharsets.UTF_8);
 			
+			ObjectMapper mapper = new ObjectMapper();
+			List<HashMap<String, String>> data = mapper.readValue(jsonContent,
+					new TypeReference<List<HashMap<String, String>>>() {
+			});
 			
-			Object obj=jsonParser.parse(reader);
-			
-			JSONObject userLoginsJsonobj=(JSONObject) obj ;
-			JSONArray userLoginsArray=(JSONArray) userLoginsJsonobj.get("user");
-			
-			String arr[]= new String[userLoginsArray.size()];
-			for (int i=0; i<userLoginsArray.size();i++);
-			{
-				int i = 0;
-				JSONObject users = (JSONObject) userLoginsArray.get(i);
-				String user=(String) users.get("phone");
-				String pwd = (String) users.get("password");
-				
-				
-				arr[i]=user+","+pwd;
-			}
-			
-					return arr;
-//			
+			return data;	
 		}
+	@AfterTest
+	 public void tearDown() {
+	 if (driver != null) {
+	 driver.quit();
+		
+	 
+	 }
+	}
 }
-

@@ -2,6 +2,8 @@ package appiumtest;
 
 import java.io.*;
 import com.jcraft.jsch.*;
+
+import IOSDriverManager.GetDriverandJsondata;
 import net.sf.expectit.Expect;
 import net.sf.expectit.ExpectBuilder;
 import java.text.DateFormat;
@@ -14,52 +16,114 @@ import static net.sf.expectit.matcher.Matchers.anyOf;
 import static net.sf.expectit.matcher.Matchers.contains;
 
 
-public class SSHManager2 extends session
+public class SSHManager2 extends GetDriverandJsondata
 {
-	public static void main(String[] args) throws JSchException, IOException, InterruptedException 
-		 {
-
-			String sshuser = "mncnow";
-			String sshhost = "10.10.20.20";
-			int sshport = 22;
-			String sshpassword = "Welcome.21!--";
-			String dbUser = "qa_vplus";
-			String dbName = "sms_gateway";
-			String dbHost = "10.10.128.146";
-			String dbPort = "5432";
-			String dbPassword = "qacredential";
-			String SQLQuery = "SELECT otp FROM smsotp ORDER BY created_at desc LIMIT 1;"; // Replace with your SQL query
-
-			JSch jsch = new JSch();
+//	public static void main(String[] args) throws JSchException, IOException, InterruptedException 
+//		 {
+//
+//			String sshuser = "mncnow";
+//			String sshhost = "10.10.20.20";
+//			int sshport = 22;
+//			String sshpassword = "Welcome.21!--";
+//			String dbUser = "qa_vplus";
+//			String dbName = "sms_gateway";
+//			String dbHost = "10.10.128.146";
+//			String dbPort = "5432";
+//			String dbPassword = "qacredential";
+//			String SQLQuery = "SELECT otp FROM smsotp ORDER BY created_at desc LIMIT 1;"; // Replace with your SQL query
+//
+//			JSch jsch = new JSch();
+//		
+//			Session session = jsch.getSession(sshuser, sshhost, sshport);
+//			Properties config = new Properties();
+//			config.put("StrictHostKeyChecking", "no");
+//			session.setConfig(config);
+//			session.setPassword(sshpassword);
+//			session.connect();
+//
+//			System.out.println("Connected");
+//
+//			Channel channel = session.openChannel("shell");
+//			channel.connect();
+//
+//			Expect expect = new ExpectBuilder().withOutput(channel.getOutputStream())
+//					.withInputs(channel.getInputStream(), channel.getExtInputStream()).withEchoInput(System.out)
+//					.withEchoOutput(System.err).withInputFilters(removeColors(), removeNonPrintable()).build();
+//			System.out.println("Channel Connected to machine ");
+//
+//
+//	        expect.sendLine("sudo ssh ubuntu@10.10.128.146 -i keypem/p-sms-otp-db.pem" );
+//	        expect.expect(contains("password"));
+//	        expect.sendLine("Welcome.21!--");
+//	        expect.expect(contains("ubuntu"));
+//	        expect.sendLine("psql -U qa_vplus -d sms_gateway -h 10.10.128.146 -p 5432 -t -c \"" + SQLQuery + "\"");
+//	        expect.expect(contains("Password"));
+//	        expect.sendLine("qacredential");
+//	        String sqlQueryResult = expect.expect(contains("ubuntu")).getBefore();
+//
+//	     // Do something with the captured SQL query result
+//	     System.out.println("SQL Query Result: " + sqlQueryResult);
+//
+//	        
+//	        Thread.sleep(889);
+//		 }
+	
+	
+	public String getOtp() throws JSchException, IOException, InterruptedException
+	{
 		
-			Session session = jsch.getSession(sshuser, sshhost, sshport);
-			Properties config = new Properties();
-			config.put("StrictHostKeyChecking", "no");
-			session.setConfig(config);
-			session.setPassword(sshpassword);
-			session.connect();
+		String sshuser = "mncnow";
+		String sshhost = "10.10.20.20";
+		int sshport = 22;
+		String sshpassword = "Welcome.21!--";
+		String dbUser = "qa_vplus";
+		String dbName = "sms_gateway";
+		String dbHost = "10.10.128.146";
+		String dbPort = "5432";
+		String dbPassword = "qacredential";
+		String SQLQuery = "SELECT otp FROM smsotp ORDER BY created_at desc LIMIT 1;"; // Replace with your SQL query
 
-			System.out.println("Connected");
+		JSch jsch = new JSch();
+	
+		Session session = jsch.getSession(sshuser, sshhost, sshport);
+		Properties config = new Properties();
+		config.put("StrictHostKeyChecking", "no");
+		session.setConfig(config);
+		session.setPassword(sshpassword);
+		session.connect();
 
-			Channel channel = session.openChannel("shell");
-			channel.connect();
+		System.out.println("Connected");
 
-			Expect expect = new ExpectBuilder().withOutput(channel.getOutputStream())
-					.withInputs(channel.getInputStream(), channel.getExtInputStream()).withEchoInput(System.out)
-					.withEchoOutput(System.err).withInputFilters(removeColors(), removeNonPrintable()).build();
-			System.out.println("Channel Connected to machine ");
+		Channel channel = session.openChannel("shell");
+		channel.connect();
+
+		Expect expect = new ExpectBuilder().withOutput(channel.getOutputStream())
+				.withInputs(channel.getInputStream(), channel.getExtInputStream()).withEchoInput(System.out)
+				.withEchoOutput(System.err).withInputFilters(removeColors(), removeNonPrintable()).build();
+		System.out.println("Channel Connected to machine ");
 
 
-	        expect.sendLine("sudo ssh ubuntu@10.10.128.146 -i keypem/p-sms-otp-db.pem" );
-	        expect.expect(contains("password"));
-	        expect.sendLine("Welcome.21!--");
-	        expect.expect(contains("ubuntu"));
-	        expect.sendLine("psql -U qa_vplus -d sms_gateway -h 10.10.128.146 -p 5432 -t -c \"" + SQLQuery + "\"");
-	        expect.expect(contains("Password"));
-	        expect.sendLine("qacredential");
-	        
-	        Thread.sleep(889);
-		 }
+        expect.sendLine("sudo ssh ubuntu@10.10.128.146 -i keypem/p-sms-otp-db.pem" );
+        expect.expect(contains("password"));
+        expect.sendLine("Welcome.21!--");
+        expect.expect(contains("ubuntu"));
+        expect.sendLine("psql -U qa_vplus -d sms_gateway -h 10.10.128.146 -p 5432 -t -c \"" + SQLQuery + "\"");
+        expect.expect(contains("Password"));
+        expect.sendLine("qacredential");
+        String sqlQueryResult = expect.expect(contains("ubuntu")).getBefore();
+
+     // Do something with the captured SQL query result
+     System.out.println("SQL Query Result: " + sqlQueryResult);
+
+        
+        Thread.sleep(889);
+		return sqlQueryResult;
+		
+		
+		
+	}
+
 }
+
 		
 	

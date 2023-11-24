@@ -1,11 +1,11 @@
-package baseclass;
+package TestCase;
 
-import appiumtest.sample;
+import IOSDriverManager.IOSDriverManager;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
 
-public class TC1  extends sample{
+public class TC1  extends IOSDriverManager{
 	@Test(dataProvider = "UserLogin")
 
 	 void Test1(String data) throws InterruptedException {

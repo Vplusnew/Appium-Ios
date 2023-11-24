@@ -1,22 +1,18 @@
-package appiumtest;
+package TestCase;
+
+
+
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.testng.annotations.Test;
 import io.appium.java_client.AppiumDriver;
-
-public class session {
+import io.appium.java_client.ios.IOSDriver;
+public class BaseClass {
 	 
-	protected AppiumDriver driver ;
+	AppiumDriver driver ;
 	@BeforeTest
 		 public  void setup () throws MalformedURLException, InterruptedException {
 		
@@ -39,25 +35,15 @@ public class session {
 		} catch(Exception exp) {
 //		  System.out.println("Cause is  : "+exp.getCause());
 //		  System.out.println("Message is :"+exp.getMessage());
-		  exp.printStackTrace();
-		}
+//		  exp.printStackTrace();
+		  }
 	}
-	public List<HashMap<String, String>> getJsonData(String jsonFilePath) throws IOException {
-			String jsonContent = FileUtils.readFileToString(new File(jsonFilePath),StandardCharsets.UTF_8);
-			
-			ObjectMapper mapper = new ObjectMapper();
-			List<HashMap<String, String>> data = mapper.readValue(jsonContent,
-					new TypeReference<List<HashMap<String, String>>>() {
-			});
-			
-			return data;	
-		}
+
 	@AfterTest
-	 public void tearDown() {
-	 if (driver != null) {
-	 driver.quit();
+	public void teardown () {
 		
-	 
-	 }
+		driver.quit();
+		driver.close();
 	}
+
 }

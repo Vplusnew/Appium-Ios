@@ -1,77 +1,35 @@
 package IOSDriverManager;
 
-import java.net.URL;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Properties;
-import java.util.regex.Pattern;
-
 import static net.sf.expectit.filter.Filters.removeColors;
 import static net.sf.expectit.filter.Filters.removeNonPrintable;
 import static net.sf.expectit.matcher.Matchers.contains;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
+
+import org.hamcrest.Matcher;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.testng.annotations.Test;
+
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
-import io.appium.java_client.AppiumDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import net.sf.expectit.Expect;
 import net.sf.expectit.ExpectBuilder;
 
-public class IOSDriverManager {
+public class GetValueFromDatabase {
 
-	protected AppiumDriver driver;
-
-	@BeforeTest
-	public void setup() throws MalformedURLException, InterruptedException {
-
-		try {
-			DesiredCapabilities cap = new DesiredCapabilities();
-			cap.setCapability("automationName", "XCUITest");
-			cap.setCapability("platformName", "iOS");
-			cap.setCapability("deviceName", "iPhone 11 Pro Max");
-			cap.setCapability("platformVersion", "15.2");
-			cap.setCapability("UDID", "519F38C9-23D1-44CF-8CD0-AAAB975A9B9B");
-			cap.setCapability("browserName", "Safari");
-
-			URL url = new URL("http://127.0.0.1:4723/wd/hub");
-
-			driver = new AppiumDriver(url, cap);
-//		driver = new IOSDriver (url,cap);
-//		driver.get("https://www.visionplus.id");
-//		driver.findElement(By.xpath("(//img[@alt='others'])[1]")).click();
-//		
-		} catch (Exception exp) {
-//		  System.out.println("Cause is  : "+exp.getCause());
-//		  System.out.println("Message is :"+exp.getMessage());
-			exp.printStackTrace();
-		}
-	}
-
-	public List<HashMap<String, String>> getJsonData(String jsonFilePath) throws IOException {
-		String jsonContent = FileUtils.readFileToString(new File(jsonFilePath), StandardCharsets.UTF_8);
-
-		ObjectMapper mapper = new ObjectMapper();
-		List<HashMap<String, String>> data = mapper.readValue(jsonContent,
-				new TypeReference<List<HashMap<String, String>>>() {
-				});
-
-		return data;
-	}
-
-	public String OTPTry(String otp1) throws JSchException, IOException, InterruptedException {
+	@Test
+	public String OTP(String otp2) throws JSchException, IOException, InterruptedException {
 		String sshuser = "mncnow";
 		String sshhost = "10.10.20.20";
 		int sshport = 22;
@@ -81,7 +39,7 @@ public class IOSDriverManager {
 		String dbHost = "10.10.128.146";
 		String dbPort = "5432";
 		String dbPassword = "qacredential";
-		String SQLQuery = "SELECT otp FROM smsotp WHERE msisdn ='+6290088882213' ORDER BY created_at desc LIMIT 1;"; // Replace with your SQL query
+		String SQLQuery = "SELECT otp FROM smsotp WHERE msisdn ='+6290088882219' ORDER BY created_at desc LIMIT 1;"; // Replace with your SQL query
 
 		JSch jsch = new JSch();
 
@@ -132,19 +90,4 @@ public class IOSDriverManager {
 			return null; // or throw an exception or handle it accordingly
 		}
 	}
-
-
-
-	@AfterTest
-	public void tearDown() {
-	    try {
-	        // Your existing teardown code
-	        if (driver != null) {
-	            driver.quit();
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
 }
-	

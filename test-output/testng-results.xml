@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2023-11-22T16:27:30 WIB" name="Default suite" finished-at="2023-11-22T16:29:13 WIB" duration-ms="102623">
+  <suite started-at="2023-11-24T18:11:21 WIB" name="Default suite" finished-at="2023-11-24T18:11:59 WIB" duration-ms="37867">
     <groups>
     </groups>
-    <test started-at="2023-11-22T16:27:30 WIB" name="Default test" finished-at="2023-11-22T16:29:13 WIB" duration-ms="102623">
-      <class name="baseclass.connectSSHManager">
-        <test-method is-config="true" signature="setup()[pri:0, instance:baseclass.connectSSHManager@73194df]" started-at="2023-11-22T16:27:30 WIB" name="setup" finished-at="2023-11-22T16:28:57 WIB" duration-ms="86920" status="PASS">
+    <test started-at="2023-11-24T18:11:21 WIB" name="Default test" finished-at="2023-11-24T18:11:59 WIB" duration-ms="37867">
+      <class name="TestCase.TC2">
+        <test-method is-config="true" signature="setup()[pri:0, instance:TestCase.TC2@40db2a24]" started-at="2023-11-24T18:11:21 WIB" name="setup" finished-at="2023-11-24T18:11:30 WIB" duration-ms="9626" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="TC1(java.util.HashMap)[pri:0, instance:baseclass.connectSSHManager@73194df]" started-at="2023-11-22T16:28:58 WIB" name="TC1" data-provider="dataLogin" finished-at="2023-11-22T16:29:12 WIB" duration-ms="13880" status="PASS">
+        <test-method signature="TC2(java.util.HashMap)[pri:0, instance:TestCase.TC2@40db2a24]" started-at="2023-11-24T18:11:31 WIB" name="TC2" data-provider="dataLogin" finished-at="2023-11-24T18:11:57 WIB" duration-ms="26692" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -21,12 +21,12 @@
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC1 -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:baseclass.connectSSHManager@73194df]" started-at="2023-11-22T16:29:12 WIB" name="tearDown" finished-at="2023-11-22T16:29:13 WIB" duration-ms="1117" status="PASS">
+        </test-method> <!-- TC2 -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:TestCase.TC2@40db2a24]" started-at="2023-11-24T18:11:58 WIB" name="tearDown" finished-at="2023-11-24T18:11:59 WIB" duration-ms="1101" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- baseclass.connectSSHManager -->
+      </class> <!-- TestCase.TC2 -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
