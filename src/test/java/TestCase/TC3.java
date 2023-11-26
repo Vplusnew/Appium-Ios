@@ -16,24 +16,28 @@ import IOSDriverManager.IOSDriverManager;
 
 import org.testng.annotations.DataProvider;
 
+import IOSDriverManager.GetRandomNumber;
+
 public class TC3 extends IOSDriverManager {
 
 	@Test(dataProvider = "dataLogin")
 	public void TC2(HashMap<String, String> data) throws JSchException, IOException, InterruptedException {
+		IOSDriverManager generated = new IOSDriverManager ();
+		String Hasil = generated.generateRandomPhoneNumber();
 		driver.get("https://www.visionplus.id");
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//img[@alt='others'])[1]")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/aside/div/div[1]/a")).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("(//input[@placeholder='8123456xxx'])[1]")).sendKeys("090088882213");
+		driver.findElement(By.xpath("(//input[@placeholder='8123456xxx'])[1]")).sendKeys(Hasil);
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//button[normalize-space()='Continue'])[1]")).click();
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("(//input[@placeholder='Your password'])[1]")).sendKeys(data.get("password"));
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("(//button[normalize-space()='Continue'])[1]")).click();
-		Thread.sleep(10000);
+		Thread.sleep(500);
 
 		IOSDriverManager extractor = new IOSDriverManager();
 
@@ -61,10 +65,11 @@ public class TC3 extends IOSDriverManager {
 
 		} finally {
 			if (driver != null) {
-				driver.quit();
-			
+//				driver.quit();
+
 			}
 		}
+
 	}
 
 	@DataProvider
@@ -75,3 +80,6 @@ public class TC3 extends IOSDriverManager {
 
 	}
 }
+
+// MKM TECHNIVAL ACCOUNT
+// user : adityo.putro, pass : Adityo@430

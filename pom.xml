@@ -21,6 +21,11 @@
 
 
 	<dependencies>
+<dependency>
+    <groupId>com.github.javafaker</groupId>
+    <artifactId>javafaker</artifactId>
+    <version>1.0.2</version> <!-- Check for the latest version on Maven Central -->
+</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.github.cverges.expect4j/expect4j -->
 <dependency>

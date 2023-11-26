@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 import java.util.regex.Pattern;
 
 import static net.sf.expectit.filter.Filters.removeColors;
@@ -30,12 +31,12 @@ import io.appium.java_client.AppiumDriver;
 import net.sf.expectit.Expect;
 import net.sf.expectit.ExpectBuilder;
 
-public class IOSDriverManager {
+public class IOSDriverManager  {
 
 	protected AppiumDriver driver;
 
 	@BeforeTest
-	public void setup() throws MalformedURLException, InterruptedException {
+	public void setup() throws MalformedURLException, InterruptedException { //FUNGSI DRIVER
 
 		try {
 			DesiredCapabilities cap = new DesiredCapabilities();
@@ -60,7 +61,7 @@ public class IOSDriverManager {
 		}
 	}
 
-	public List<HashMap<String, String>> getJsonData(String jsonFilePath) throws IOException {
+	public List<HashMap<String, String>> getJsonData(String jsonFilePath) throws IOException { //FUNGSI GETDATA JSON
 		String jsonContent = FileUtils.readFileToString(new File(jsonFilePath), StandardCharsets.UTF_8);
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -71,7 +72,11 @@ public class IOSDriverManager {
 		return data;
 	}
 
-	public String OTPTry(String otp1) throws JSchException, IOException, InterruptedException {
+	public String OTPTry(String otp1) throws JSchException, IOException, InterruptedException { //FUNGSI CONNECT DATABASE
+		
+		GetRandomNumber generator = new GetRandomNumber ();
+    	String  Hasil = generator.number("number1");
+         
 		String sshuser = "mncnow";
 		String sshhost = "10.10.20.20";
 		int sshport = 22;
@@ -81,7 +86,8 @@ public class IOSDriverManager {
 		String dbHost = "10.10.128.146";
 		String dbPort = "5432";
 		String dbPassword = "qacredential";
-		String SQLQuery = "SELECT otp FROM smsotp WHERE msisdn ='+6290088882213' ORDER BY created_at desc LIMIT 1;"; // Replace with your SQL query
+		String SQLQuery = "SELECT otp FROM smsotp ORDER BY created_at DESC LIMIT 1;";
+
 
 		JSch jsch = new JSch();
 
@@ -132,19 +138,41 @@ public class IOSDriverManager {
 			return null; // or throw an exception or handle it accordingly
 		}
 	}
+	
+//
+//	public class GetrandomNumber1  {
+//		
+	public String generateRandomPhoneNumber() { // FUNGSI RANDOM PHONE
+		Random rand = new Random();
 
+		// Generate a random 6-digit suffix for the phone number
+		StringBuilder suffix = new StringBuilder();
+		for (int i = 0; i < 8; i++) {
+			suffix.append(rand.nextInt(10));
+		}
+
+		// Append the prefix "0800" to the suffix
+		return "+62800" + suffix.toString();
+	}
+
+	public void main(String[] args) {
+		IOSDriverManager generator = new IOSDriverManager();
+
+		// Generate and print a random phone number with "0800" prefix
+		String phoneNumber = generator.generateRandomPhoneNumber();
+//	        System.out.println("Generated Phone Number: " + phoneNumber);
+	}
 
 
 	@AfterTest
 	public void tearDown() {
-	    try {
-	        // Your existing teardown code
-	        if (driver != null) {
-	            driver.quit();
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+		try {
+			// Your existing teardown code
+			if (driver != null) {
+				driver.quit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
-	
